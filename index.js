@@ -5,9 +5,18 @@ const path=require("path");
 var app=express();
 
 app.use(bodyParser.json());
-app.use(express.static("./"));
+app.use(express.static("public"));
+
 app.post("/tabledata",(req,res)=>{
   res.sendFile(path.resolve("./public/jsondata.json"));
+});
+
+app.get("/",(req,res)=>{
+  res.sendFile(path.resolve("./public/index.html"));
+});
+
+app.get("/*",(req,res)=>{
+  res.sendFile(path.resolve("./public"+req.url));
 });
 
 const port=process.env.PORT||5000;
